@@ -84,7 +84,7 @@ export class RegisterComponent {
           this.registerationForm.reset();
         }
         this.spinner.hide();
-        this.router.navigate(['/login']);
+        this.router.navigate(['login']);
       },
       error: (error) => {
         this.show('error', 'Registration Failed', error.error.error || 'An error occurred during registration!');

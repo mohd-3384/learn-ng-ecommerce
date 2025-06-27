@@ -3,7 +3,6 @@ export interface IRegister {
     email: string;
     password: string;
     repassword: string;
-    registerationForm: string;
 }
 
 export interface ILogin {

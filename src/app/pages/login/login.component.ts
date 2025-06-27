@@ -64,7 +64,7 @@ export class LoginComponent {
           localStorage.setItem('token', response._id);
         }
         this.spinner.hide();
-        this.router.navigate(['/user']);
+        this.router.navigate(['user']);
       },
       error: (error) => {
         this.show('error', 'Login Failed', error.error.error || 'An error occurred during login!');

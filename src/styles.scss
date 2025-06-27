@@ -1,12 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 body {
     background-color: #d3d3d3 !important;
-    margin: 0;
+    margin: 0 4px;
 }
 
 .container {
     margin-left: auto;
     margin-right: auto;
+    padding: 0 10px;
 }
 
 @media only screen and (max-width: 767px) {
