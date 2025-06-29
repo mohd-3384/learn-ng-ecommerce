@@ -1,12 +1,12 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
 import { AuthService } from '../../core/service/auth.service';
 import { IRegister } from '../../core/interfaces/http';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from '@angular/router';
 import { SharedModule } from '../../shared/modules/shared/shared.module';
 import { UserDataService } from '../../core/service/user-data.service';
+import { NotifecationsService } from '../../core/service/notifecations.service';
 
 @Component({
   selector: 'app-register',
@@ -23,11 +23,12 @@ export class RegisterComponent {
   password!: FormControl
   repassword!: FormControl
   registerationForm!: FormGroup
+  isRegisterd: boolean = false;
 
 
   constructor(
     private _authService: AuthService,
-    private messageService: MessageService,
+    private _notificationService: NotifecationsService,
     private spinner: NgxSpinnerService,
     private router: Router,
     private _userData: UserDataService
@@ -70,6 +71,7 @@ export class RegisterComponent {
       });
     } else {
       this.signUp(this.registerationForm.value as IRegister);
+      this.isRegisterd = true;
     }
   }
 
@@ -78,7 +80,7 @@ export class RegisterComponent {
     this._authService.register(data).subscribe({
       next: (response) => {
         if (response._id) {
-          this.show('success', 'Registration Successful', 'You have successfully registered!');
+          this._notificationService.showSuccess('Registration Successful', 'You have successfully registered!');
           const { email, password } = data;
           this._authService.login({ email, password }).subscribe(() => {
             localStorage.setItem('token', response._id);
@@ -92,13 +94,10 @@ export class RegisterComponent {
         this.router.navigate(['login']);
       },
       error: (error) => {
-        this.show('error', 'Registration Failed', error.error.error || 'An error occurred during registration!');
+        this._notificationService.showError('Registration Failed', error.error.error || 'An error occurred during registration!');
         this.spinner.hide();
       }
     })
   }
 
-  show(severity: string, summary: string, detail: string): void {
-    this.messageService.add({ severity: severity, summary: summary, detail: detail });
-  }
 }

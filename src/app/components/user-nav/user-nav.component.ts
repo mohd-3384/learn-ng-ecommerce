@@ -53,6 +53,10 @@ export class UserNavComponent implements OnInit {
         path: 'categories'
       },
     ];
+
+    this._cartService.countOfCart.subscribe((next) => {
+      this.cartCount = next;
+    });
   }
 
   getUserName(): void {
@@ -68,6 +72,7 @@ export class UserNavComponent implements OnInit {
     this._auth.logout().subscribe(() => {
       localStorage.removeItem('token');
       localStorage.removeItem('username');
+      localStorage.removeItem('cartState');
       this.router.navigate(['login']);
     });
   }

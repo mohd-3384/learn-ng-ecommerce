@@ -1,13 +1,13 @@
 
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
 import { AuthService } from '../../core/service/auth.service';
 import { ILogin } from '../../core/interfaces/http';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from '@angular/router';
 import { SharedModule } from '../../shared/modules/shared/shared.module';
 import { UserDataService } from '../../core/service/user-data.service';
+import { NotifecationsService } from '../../core/service/notifecations.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +25,7 @@ export class LoginComponent {
 
   constructor(
     private _authService: AuthService,
-    private messageService: MessageService,
+    private _notificationService: NotifecationsService,
     private spinner: NgxSpinnerService,
     private router: Router,
     private _userData: UserDataService
@@ -62,7 +62,7 @@ export class LoginComponent {
     this._authService.login(data).subscribe({
       next: (response) => {
         if (response._id) {
-          this.show('success', 'Login Successful', 'Welcome back!');
+          this._notificationService.showSuccess('Login Successful', 'Welcome back!');
           this.loginForm.reset();
           localStorage.setItem('token', response._id);
           this._userData.userName.next(response.name);
@@ -72,13 +72,10 @@ export class LoginComponent {
         this.router.navigate(['user']);
       },
       error: (error) => {
-        this.show('error', 'Login Failed', error.error.error || 'An error occurred during login!');
+        this._notificationService.showError('Login Failed', error.error.error || 'An error occurred during login!');
         this.spinner.hide();
       }
     })
   }
 
-  show(severity: string, summary: string, detail: string): void {
-    this.messageService.add({ severity: severity, summary: summary, detail: detail });
-  }
 }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { baseUrl } from '../apiRoot/baseUrl';
 import { IProducts } from '../interfaces/http';
-import { NotifecationsServiceService } from './notifecations-service.service';
+import { NotifecationsService } from './notifecations.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class CartService {
 
   constructor(
     private _httpClient: HttpClient,
-    private _notifecationsService: NotifecationsServiceService,
+    private _notifecationsService: NotifecationsService,
   ) { }
 
   countOfCart: BehaviorSubject<number> = new BehaviorSubject(

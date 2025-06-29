@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { MessagesModule } from 'primeng/messages';
 import { IProducts } from '../../core/interfaces/http';
 import { CartService } from '../../core/service/cart.service';
+import { NotifecationsService } from '../../core/service/notifecations.service';
 
 
 @Component({
@@ -16,7 +17,10 @@ import { CartService } from '../../core/service/cart.service';
 })
 export class CardComponent {
 
-  constructor(private _cartService: CartService) { }
+  constructor(
+    private _cartService: CartService,
+    private _notificationService: NotifecationsService,
+  ) { }
 
   isAddedToCart: boolean = false;
 
