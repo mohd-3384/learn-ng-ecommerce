@@ -3,7 +3,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../core/service/auth.service';
 import { ILogin } from '../../core/interfaces/http';
-import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from '@angular/router';
 import { SharedModule } from '../../shared/modules/shared/shared.module';
 import { UserDataService } from '../../core/service/user-data.service';
@@ -26,7 +25,6 @@ export class LoginComponent {
   constructor(
     private _authService: AuthService,
     private _notificationService: NotifecationsService,
-    private spinner: NgxSpinnerService,
     private router: Router,
     private _userData: UserDataService
   ) {
@@ -58,7 +56,6 @@ export class LoginComponent {
   }
 
   signIn(data: ILogin): void {
-    this.spinner.show();
     this._authService.login(data).subscribe({
       next: (response) => {
         if (response._id) {
@@ -68,12 +65,10 @@ export class LoginComponent {
           this._userData.userName.next(response.name);
           localStorage.setItem('username', response.name)
         }
-        this.spinner.hide();
         this.router.navigate(['user']);
       },
       error: (error) => {
         this._notificationService.showError('Login Failed', error.error.error || 'An error occurred during login!');
-        this.spinner.hide();
       }
     })
   }

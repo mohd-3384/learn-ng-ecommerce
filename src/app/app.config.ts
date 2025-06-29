@@ -1,11 +1,12 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
-import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
+import { routes } from './app.routes';
+import { loadingInterceptor } from './core/interceptor/loading.interceptor';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,5 +15,9 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideAnimations(),
     MessageService,
-    importProvidersFrom(HttpClientModule)],
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([loadingInterceptor])
+    )
+  ],
 };

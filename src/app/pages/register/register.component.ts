@@ -2,7 +2,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from '../../core/service/auth.service';
 import { IRegister } from '../../core/interfaces/http';
-import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from '@angular/router';
 import { SharedModule } from '../../shared/modules/shared/shared.module';
 import { UserDataService } from '../../core/service/user-data.service';
@@ -29,7 +28,6 @@ export class RegisterComponent {
   constructor(
     private _authService: AuthService,
     private _notificationService: NotifecationsService,
-    private spinner: NgxSpinnerService,
     private router: Router,
     private _userData: UserDataService
   ) {
@@ -76,7 +74,6 @@ export class RegisterComponent {
   }
 
   signUp(data: IRegister): void {
-    this.spinner.show();
     this._authService.register(data).subscribe({
       next: (response) => {
         if (response._id) {
@@ -90,12 +87,10 @@ export class RegisterComponent {
           });
           this.registerationForm.reset();
         }
-        this.spinner.hide();
         this.router.navigate(['login']);
       },
       error: (error) => {
         this._notificationService.showError('Registration Failed', error.error.error || 'An error occurred during registration!');
-        this.spinner.hide();
       }
     })
   }
