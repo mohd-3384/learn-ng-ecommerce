@@ -7,6 +7,7 @@ import { ILogin } from '../../core/interfaces/http';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from '@angular/router';
 import { SharedModule } from '../../shared/modules/shared/shared.module';
+import { UserDataService } from '../../core/service/user-data.service';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,9 @@ export class LoginComponent {
     private _authService: AuthService,
     private messageService: MessageService,
     private spinner: NgxSpinnerService,
-    private router: Router) {
+    private router: Router,
+    private _userData: UserDataService
+  ) {
     this.initFormControls();
     this.initFormGroupes();
   }
@@ -62,6 +65,8 @@ export class LoginComponent {
           this.show('success', 'Login Successful', 'Welcome back!');
           this.loginForm.reset();
           localStorage.setItem('token', response._id);
+          this._userData.userName.next(response.name);
+          localStorage.setItem('username', response.name)
         }
         this.spinner.hide();
         this.router.navigate(['user']);

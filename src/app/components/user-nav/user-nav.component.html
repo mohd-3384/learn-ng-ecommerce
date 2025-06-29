@@ -1,34 +1,34 @@
 <div class="card">
-    <p-menubar [model]="items">
-        <ng-template pTemplate="start">
-            <figure class="mx-2 my-0">
-                <img class="w-2rem" src="./assets/images/logo.svg" alt="logo">
-            </figure>
-        </ng-template>
+  <p-menubar [model]="items">
+    <ng-template pTemplate="start">
+      <figure class="mx-2 my-0">
+        <img class="w-2rem" src="./assets/images/logo.svg" alt="logo">
+      </figure>
+    </ng-template>
 
-        <ng-template pTemplate="item" let-item let-root="root">
-            <a [routerLink]="item?.['path']" routerLinkActive="surface-400 underline" pRipple
-                class="flex align-items-center p-menuitem-link">
-                <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-            </a>
-        </ng-template>
+    <ng-template pTemplate="item" let-item let-root="root">
+      <a [routerLink]="item?.['path']" routerLinkActive="surface-400 underline" pRipple
+        class="flex align-items-center p-menuitem-link">
+        <span [class]="item.icon"></span>
+        <span class="ml-2">{{ item.label }}</span>
+      </a>
+    </ng-template>
 
-        <ng-template pTemplate="end">
-            <div class="card flex justify-content-center align-items-center gap-3">
-                <a>
-                    <i class="pi pi-shopping-cart text-3xl mr-4" pBadge value="2"></i>
-                </a>
-                <a (click)="logout = !logout" class="user-name p-3 font-bold capitalize relative cursor-pointer">
-                    <span>Mohammed Ali</span>
-                    @if (logout) {
-                    <a class="logout py-2 px-5 font-bold absolute left-50 flex align-items-center gap-2">
-                        <span>Logout</span>
-                        <span class="pi pi-sign-out"> </span>
-                    </a>
-                    }
-                </a>
-            </div>
-        </ng-template>
-    </p-menubar>
+    <ng-template pTemplate="end">
+      <div class="card flex justify-content-center align-items-center gap-3 mr-7">
+        <a>
+          <i class="pi pi-shopping-cart text-3xl mr-4" pBadge [value]="cartCount"></i>
+        </a>
+        <a (click)="logout = !logout" class="user-name p-3 font-bold capitalize relative cursor-pointer">
+          <span>{{username}}</span>
+          @if (logout) {
+          <a (click)="logoutUser()" class="logout py-2 px-5 font-bold absolute left-50 flex align-items-center gap-2">
+            <span>Logout</span>
+            <span class="pi pi-sign-out"> </span>
+          </a>
+          }
+        </a>
+      </div>
+    </ng-template>
+  </p-menubar>
 </div>
