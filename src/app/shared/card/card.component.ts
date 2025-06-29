@@ -5,13 +5,13 @@ import { ButtonModule } from 'primeng/button';
 import { MessagesModule } from 'primeng/messages';
 import { IProducts } from '../../core/interfaces/http';
 import { CartService } from '../../core/service/cart.service';
-import { NotifecationsService } from '../../core/service/notifecations.service';
+import { EmptyComponent } from "../empty/empty.component";
 
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [NgClass, ButtonModule, RouterLink, MessagesModule],
+  imports: [NgClass, ButtonModule, RouterLink, MessagesModule, EmptyComponent],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss'
 })
@@ -19,14 +19,13 @@ export class CardComponent {
 
   constructor(
     private _cartService: CartService,
-    private _notificationService: NotifecationsService,
   ) { }
 
   isAddedToCart: boolean = false;
 
   @Input({ required: true }) isSmallCard: boolean = false;
-
   @Input({ required: true }) products!: IProducts[];
+  @Input() searchKey: string = '';
 
 
   addToCart(product: IProducts) {
