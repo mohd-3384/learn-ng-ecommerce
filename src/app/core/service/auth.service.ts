@@ -23,4 +23,8 @@ export class AuthService {
     const token = localStorage.getItem('token');
     return !!token; // Returns true if token exists, false otherwise
   }
+
+  logout(): Observable<any> {
+    return this._httpClient.post(`${baseUrl}/api/users/logout`, {});
+  }
 }
