@@ -54,8 +54,8 @@ export class UserNavComponent implements OnInit {
       },
     ];
 
-    this._cartService.countOfCart.subscribe((next) => {
-      this.cartCount = next;
+    this._cartService.countOfCart.subscribe((count) => {
+      this.cartCount = count;
     });
   }
 

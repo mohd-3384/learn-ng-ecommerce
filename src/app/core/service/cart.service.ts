@@ -33,7 +33,7 @@ export class CartService {
       product.isAddedToCart = true;
       cart.push(product);
       localStorage.setItem('cartState', JSON.stringify(cart));
-      this._notifecationsService.showSuccess('Success', 'Item added to cart');
+      this._notifecationsService.showSuccess('Success', 'Product added to cart');
       this.countOfCart.next(cart.length);
     } else {
       // this._notifecationsService.showError('error', 'is item is added');
