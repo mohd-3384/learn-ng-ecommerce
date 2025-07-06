@@ -8,6 +8,7 @@ export const loadingInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {
+
   const spinner = inject(NgxSpinnerService);
   spinner.show();
 
