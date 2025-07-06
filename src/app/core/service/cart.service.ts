@@ -21,9 +21,9 @@ export class CartService {
     ).length
   );
 
-  getCartCount(id: string): Observable<any> {
-    return this._httpClient.get(`${baseUrl}/my-cart/${id}`)
-  }
+  // getCartCount(id: string): Observable<any> {
+  //   return this._httpClient.get(`${baseUrl}/my-cart/${id}`)
+  // }
 
   addToCart(product: IProducts) {
     const storedCart = localStorage.getItem('cartState');
@@ -36,7 +36,7 @@ export class CartService {
       this._notifecationsService.showSuccess('Success', 'Product added to cart');
       this.countOfCart.next(cart.length);
     } else {
-      // this._notifecationsService.showError('error', 'is item is added');
+      // this._notifecationsService.showError('error', 'Product already in cart');
     }
   }
 

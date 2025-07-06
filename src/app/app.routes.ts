@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { registerGuard } from './core/guards/register.guard';
+import { myDetailsResolver } from './core/guards/my-details.resolver';
 
 export const routes: Routes = [
 
@@ -24,9 +25,13 @@ export const routes: Routes = [
       { path: 'home', loadComponent: () => import('./pages/home/home.component').then(c => c.HomeComponent) },
       { path: 'cart', loadComponent: () => import('./pages/cart/cart.component').then(c => c.CartComponent) },
       { path: 'products', loadComponent: () => import('./pages/products/products.component').then(c => c.ProductsComponent) },
-      { path: 'details/:id', loadComponent: () => import('./pages/details/details.component').then(c => c.DetailsComponent) },
+      {
+        path: 'details/:id', loadComponent: () => import('./pages/details/details.component').then(c => c.DetailsComponent),
+        resolve: { details: myDetailsResolver },
+      },
       { path: 'categories', loadComponent: () => import('./pages/categories/categories.component').then(c => c.CategoriesComponent) },
-      { path: 'specificCategory/:type', loadComponent: () => import('./pages/specific-category/specific-category.component').then(c => c.SpecificCategoryComponent) }
+      { path: 'specificCategory/:type', loadComponent: () => import('./pages/specific-category/specific-category.component').then(c => c.SpecificCategoryComponent) },
+      { path: '**', redirectTo: 'home', pathMatch: 'full' },
     ]
   },
 ];

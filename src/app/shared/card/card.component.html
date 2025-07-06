@@ -3,30 +3,30 @@
   <div [ngClass]="{ 'col-6':isSmallCard, 'col-12 md:col-4 lg:col-4' : !isSmallCard }">
     <div [ngClass]="{ 'flex flex-wrap lg:flex-nowrap justify-content-center gap-2' : isSmallCard }">
       <figure class="m-1 shadow-2 border-round-2xl overflow-hidden cursor-pointer"
-        [ngClass]="{ 'md:w-6rem lg:w-9rem': isSmallCard }" [routerLink]="['/user/cart', product.id]">
+        [ngClass]="{ 'md:w-6rem lg:w-9rem': isSmallCard }" [routerLink]="['/user/details', product.id]">
         <img #image class="w-full" [ngClass]="{ 'h-full': isSmallCard, 'h-20rem': !isSmallCard }" [src]="product.image"
           (error)="image.src ='https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1692941008275-headphone3.jpg'"
           alt="product" />
       </figure>
 
       <div class="content py-1 w-full">
-        <p class="truncate-text overflow-hidden font-medium text-xs my-1">
+        <p class="truncate-text overflow-hidden font-medium text-xs text-white my-1">
           {{product.description}}
         </p>
 
         <div class="flex align-items-center gap-2">
           <div class="price flex gap-2 align-items-center">
-            <span class="text-color-secondary font-bold">
+            <span class="text-white font-bold">
               <del>14</del>
             </span>
-            <span class="new-price font-bold">
-              <span class="text-green-400">$</span>
+            <span class="new-price font-bold textGreen">
+              <span class="textGreen">$</span>
               {{product.price}}
             </span>
           </div>
 
           <div class="offer">
-            <span class="bg-red-500 p-1 border-circle text-white text-xs">% {{product.discount}} </span>
+            <span class="bg-red-500 p-1 border-circle textGreen text-xs">% {{product.discount}} </span>
             <span class="fonot-bold text-xs font-bold px-1">off</span>
           </div>
         </div>
@@ -39,7 +39,7 @@
       }
 
       @if (product.isAddedToCart) {
-      <p-button [routerLink]="['/cart']" label="go to cart" severity="contrast" styleClass="my-2 uppercase w-full"
+      <p-button [routerLink]="['/user/cart']" label="go to cart" severity="contrast" styleClass="my-2 uppercase w-full"
         icon="pi pi-shopping-cart text-2xl" iconPos="right" />
       }
       }

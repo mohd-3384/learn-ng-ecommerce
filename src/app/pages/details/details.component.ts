@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CartService } from '../../core/service/cart.service';
 import { IProducts } from '../../core/interfaces/http';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [],
+  imports: [ButtonModule, RouterLink],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })
@@ -30,9 +31,10 @@ export class DetailsComponent {
 
   displayDetails(): void {
     this._activateRoute.data.subscribe((data: any) => {
+      // console.log(data);
       this.productDetails = {
         ...data.details.product,
-        isAddedToCart: this._cartService.isAddedToCart(data.details.product),
+        isAddedToCart: this._cartService.isAddedToCart(data.details.product)
       };
     });
   }

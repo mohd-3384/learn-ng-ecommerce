@@ -3,6 +3,7 @@ import { CategoryService } from '../../core/service/category.service';
 import { ActivatedRoute } from '@angular/router';
 import { CardComponent } from "../../shared/card/card.component";
 import { IProducts } from '../../core/interfaces/http';
+import { CartService } from '../../core/service/cart.service';
 
 @Component({
   selector: 'app-specific-category',
@@ -15,7 +16,8 @@ export class SpecificCategoryComponent {
 
   constructor(
     private _categoryService: CategoryService,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _cartService: CartService
   ) { }
 
   categoryType: string = '';
@@ -27,11 +29,11 @@ export class SpecificCategoryComponent {
   }
 
   getSpecificCategory(type: string): void {
-    this._categoryService.getSpecificCategory(type)
-      .subscribe((response) => {
-        // console.log(response);
-        this.products = response.products;
-        // console.log(this.products);
-      });
+    this._categoryService.getSpecificCategory(type).subscribe((response) => {
+      this.products = response.products.map((product: IProducts) => ({
+        ...product,
+        isAddedToCart: this._cartService.isAddedToCart(product)
+      }));
+    });
   }
 }

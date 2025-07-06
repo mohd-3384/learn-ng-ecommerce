@@ -16,7 +16,7 @@
 
     <ng-template pTemplate="end">
       <div class="card flex justify-content-center align-items-center gap-3 mr-7">
-        <a>
+        <a [routerLink]="'/user/cart'" routerLinkActive="surface-400 underline">
           <i class="pi pi-shopping-cart text-3xl mr-4" pBadge [value]="cartCount"></i>
         </a>
         <a (click)="logout = !logout" class="user-name p-3 font-bold capitalize relative cursor-pointer">

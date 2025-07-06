@@ -1,5 +1,9 @@
 .p-element.p-button {
-    display: block;
-    width: 40%;
-    margin: 0 auto;
+  display: block;
+  width: 40%;
+  margin: 0 auto;
+}
+
+.auth-body {
+  min-height: calc(100vh - 580px) !important;
 }
